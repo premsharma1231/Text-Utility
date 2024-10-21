@@ -1,3 +1,3 @@
-[submodule "Text-Utility/home"]
+[submodule "Text-Utils"]
  path = Text-Utility/home
- url = https://github.com/premsharma1231/Text-Utility.git
+ url = https://github.com/premsharma1231/Text-Utility
