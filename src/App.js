@@ -50,7 +50,7 @@ export default function App(){
       <Alert showAlert={showAlert}/>
     <Routes>
       <Route path="/About" element={<About Mode={Mode}/>}/>
-      <Route path="/Text-Utility/home" element={
+      <Route path="/Text-Utility" element={
         <TextForm buttonColor={buttonColor} Text={Text} ShowAlert={ShowAlert} Mode={Mode} showAlert={showAlert} setshowAlert={setshowAlert}/>
       } />
       </Routes>
