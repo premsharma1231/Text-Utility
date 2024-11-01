@@ -8,7 +8,7 @@ function capitalizeFirstLetter(string) {
 
 function Alert(props){
     return(
-        props.showAlert && <div style={{position:'absolute', top: '56px', left: '0px', width:'100%', height: '30px',lineHeight:'0px',textAlign:'center'}} className={`alert alert-${props.showAlert.type}`} role="alert"><strong>{capitalizeFirstLetter(props.showAlert.type)}</strong> : {props.showAlert.msg}</div>
+        props.showAlert && <div style={{position:'sticky', top: '56px', left: '0px', width:'100%', height: '30px',lineHeight:'0px',textAlign:'center'}} className={`alert alert-${props.showAlert.type}`} role="alert"><strong>{capitalizeFirstLetter(props.showAlert.type)}</strong> : {props.showAlert.msg}</div>
     )
 }
 
