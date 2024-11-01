@@ -100,6 +100,7 @@ export default function TextForm(props) {
         if (Text === '') {
             props.ShowAlert('Write Something In the Text-Area To Convert In TitleCase', 'warning');
         } else {
+            props.ShowAlert('Converted to Title Case', 'Success');
             setText(Text.toLowerCase().split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' '));
         }
     }
@@ -107,6 +108,7 @@ export default function TextForm(props) {
         if (Text === '') {
             props.ShowAlert('Write Something In the Text-Area To Convert In TitleCase', 'warning');
         } else {
+            props.ShowAlert('Converted to Sentence Case', 'Success');
             setText(Text.toLowerCase().replace(/(^\s*\w|[.!?]\s*\w)/g, c => c.toUpperCase()));
         }
     }
