@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import "../App.css"
+
 
 export default function TextForm(props) {
     const [Text, setText] = useState('');
@@ -109,7 +111,7 @@ export default function TextForm(props) {
         }
     }
     
-
+    
 
     return (
         <>
