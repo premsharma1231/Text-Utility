@@ -137,7 +137,7 @@ export default function TextForm(props) {
                 <p className={`text-${props.AllTextColor}`}><b>{Text.split(" ").filter((Text) => Text !== '').length}</b> words, <b>{Text.length}</b> characters,<b> {Text.replace(/\n/g, '.').split('.').filter((value) => value !== '').length}</b> statements, <b> {Text.split('?').length - 1}</b> questions & {' '}<b>{Text.split('!').length - 1}</b> exclamations.</p>
                 <p className={`text-${props.AllTextColor}`}>{(Text.split(" ").filter((Text) => Text !== '').length) / 125} Minutes read</p>
                 <h2 className={`text-${props.AllTextColor}`}>Preview</h2>
-                <p className={`text-${props.AllTextColor}`}>{Text || "Enter something in the textbox above to preview it here"}</p>
+                <p className={`text-${props.AllTextColor} w-10/12`}>{Text || "Enter something in the textbox above to preview it here"}</p>
             </div>
         </>
     );
