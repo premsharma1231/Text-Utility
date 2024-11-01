@@ -121,17 +121,17 @@ export default function TextForm(props) {
                 <h1 className={`text-${props.AllTextColor}`}>Enter the text to analyze below</h1>
                 <textarea className="form-control my-2" value={Text} onChange={HandleOnChange} style={{ fontSize: `${fontSize}px` }} id="exampleFormControlTextarea1" rows="8"></textarea>
                 
-                <button type="button" onClick={ConvertToUpperCase} className={`btn mx-1 my-1 btn-${props.buttonColor}`}>Convert To UpperCase</button>
-                <button type="button" onClick={ConvertToLowerCase} className={`btn mx-1 my-1 btn-${props.buttonColor}`}>Convert To LowerCase</button>
-                <button type="button" onClick={ConverttoTitleCase} className={`btn mx-1 my-1 btn-${props.buttonColor}`}>Convert To TitleCase</button>
-                <button type="button" onClick={ConverttoSentenceCase} className={`btn mx-1 my-1 btn-${props.buttonColor}`}>Convert To SentenceCase</button>
-                <button type="button" onClick={ClearingText} className={`btn mx-1 my-1 btn-${props.buttonColor}`}>Clear Text</button>
-                <button type="button" onClick={CopyingToClipBoard} className={`btn mx-1 my-1 btn-${props.buttonColor}`}>Copy Text</button>
-                <button type="button" onClick={PastingFromClipBoard} className={`btn mx-1 my-1 btn-${props.buttonColor}`}>Paste Text</button>
-                <button type="button" onClick={RemoveExtraSpaces} className={`btn mx-1 my-1 btn-${props.buttonColor}`}>Remove Extra Spaces</button>
-                <button type="button" onClick={LetComputerSpeak} className={`btn mx-1 my-1 btn-${props.buttonColor}`}>Listen</button>
-                <button type="button" onClick={IncreaseFontSize} className={`btn mx-1 my-1 btn-${props.buttonColor}`}>Increase FontSize</button>
-                <button type="button" onClick={DecreaseFontSize} className={`btn mx-1 my-1 btn-${props.buttonColor}`}>Decrease FontSize</button>
+                <button type="button" onClick={ConvertToUpperCase} className={`btn BasBbutton mx-1 my-1 btn-${props.buttonColor}`}>Convert To UpperCase</button>
+                <button type="button" onClick={ConvertToLowerCase} className={`btn BasBbutton mx-1 my-1 btn-${props.buttonColor}`}>Convert To LowerCase</button>
+                <button type="button" onClick={ConverttoTitleCase} className={`btn BasBbutton mx-1 my-1 btn-${props.buttonColor}`}>Convert To TitleCase</button>
+                <button type="button" onClick={ConverttoSentenceCase} className={`btn BasBbutton mx-1 my-1 btn-${props.buttonColor}`}>Convert To SentenceCase</button>
+                <button type="button" onClick={ClearingText} className={`btn BasBbutton mx-1 my-1 btn-${props.buttonColor}`}>Clear Text</button>
+                <button type="button" onClick={CopyingToClipBoard} className={`btn BasBbutton mx-1 my-1 btn-${props.buttonColor}`}>Copy Text</button>
+                <button type="button" onClick={PastingFromClipBoard} className={`btn BasBbutton mx-1 my-1 btn-${props.buttonColor}`}>Paste Text</button>
+                <button type="button" onClick={RemoveExtraSpaces} className={`btn BasBbutton mx-1 my-1 btn-${props.buttonColor}`}>Remove Extra Spaces</button>
+                <button type="button" onClick={LetComputerSpeak} className={`btn BasBbutton mx-1 my-1 btn-${props.buttonColor}`}>Listen</button>
+                <button type="button" onClick={IncreaseFontSize} className={`btn BasBbutton mx-1 my-1 btn-${props.buttonColor}`}>Increase FontSize</button>
+                <button type="button" onClick={DecreaseFontSize} className={`btn BasBbutton mx-1 my-1 btn-${props.buttonColor}`}>Decrease FontSize</button>
                 
                 <h2 className={`text-${props.AllTextColor}`}>Your text summary</h2>
                 <p className={`text-${props.AllTextColor}`}><b>{Text.split(" ").filter((Text) => Text !== '').length}</b> words, <b>{Text.length}</b> characters,<b> {Text.replace(/\n/g, '.').split('.').filter((value) => value !== '').length}</b> statements, <b> {Text.split('?').length - 1}</b> questions & {' '}<b>{Text.split('!').length - 1}</b> exclamations.</p>
