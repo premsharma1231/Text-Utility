@@ -11,13 +11,19 @@ export default function TextForm(props) {
     }
 
     function IncreaseFontSize() {
-        setFontSize(prevSize => prevSize + 2); // Increase font size by 2 pixels
-        props.ShowAlert('Font size increased!', 'success');
+        setFontSize(prevSize => {
+            const newSize = prevSize + 2;
+            props.ShowAlert(`Font size increased to ${newSize}`, 'success');
+            return newSize;
+        });    
     }
 
     function DecreaseFontSize() {
-        setFontSize(prevSize => Math.max(prevSize - 2, 10)); // Decrease font size by 2 pixels, minimum 10 pixels
-        props.ShowAlert('Font size decreased!', 'success');
+        setFontSize(prevSize => {
+            const newSize = Math.max(prevSize - 2, 10);
+            props.ShowAlert(`Font size decreased to ${newSize}`, 'success');
+            return newSize;
+        });
     }
 
 
@@ -100,7 +106,7 @@ export default function TextForm(props) {
         if (Text === '') {
             props.ShowAlert('Write Something In the Text-Area To Convert In TitleCase', 'warning');
         } else {
-            props.ShowAlert('Converted to Title Case', 'Success');
+            props.ShowAlert('Converted to Title Case', 'success');
             setText(Text.toLowerCase().split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' '));
         }
     }
@@ -108,7 +114,7 @@ export default function TextForm(props) {
         if (Text === '') {
             props.ShowAlert('Write Something In the Text-Area To Convert In TitleCase', 'warning');
         } else {
-            props.ShowAlert('Converted to Sentence Case', 'Success');
+            props.ShowAlert('Converted to Sentence Case', 'success');
             setText(Text.toLowerCase().replace(/(^\s*\w|[.!?]\s*\w)/g, c => c.toUpperCase()));
         }
     }
@@ -119,8 +125,10 @@ export default function TextForm(props) {
         <>
             <div style={{marginTop:'35px'}} className="container" id="ControlingNavbarDisplay">
                 <h1 className={`text-${props.AllTextColor}`}>Enter the text to analyze below</h1>
-                <textarea className="form-control my-2" value={Text} onChange={HandleOnChange} style={{ fontSize: `${fontSize}px` }} id="exampleFormControlTextarea1" rows="8"></textarea>
+                <textarea className="form-control w-90 my-2 relative" value={Text} onChange={HandleOnChange} style={{ fontSize: `${fontSize}px`, height: '190px' }} id="exampleFormControlTextarea1"></textarea>
                 
+                <button type="button" onClick={IncreaseFontSize} className={`btn BasBbutton mx-1 my-1 btn-${props.buttonColor}`}>Increase FontSize</button>
+                <button type="button" onClick={DecreaseFontSize} className={`btn BasBbutton mx-1 my-1 btn-${props.buttonColor}`}>Decrease FontSize</button>
                 <button type="button" onClick={ConvertToUpperCase} className={`btn BasBbutton mx-1 my-1 btn-${props.buttonColor}`}>Convert To UpperCase</button>
                 <button type="button" onClick={ConvertToLowerCase} className={`btn BasBbutton mx-1 my-1 btn-${props.buttonColor}`}>Convert To LowerCase</button>
                 <button type="button" onClick={ConverttoTitleCase} className={`btn BasBbutton mx-1 my-1 btn-${props.buttonColor}`}>Convert To TitleCase</button>
@@ -130,9 +138,7 @@ export default function TextForm(props) {
                 <button type="button" onClick={PastingFromClipBoard} className={`btn BasBbutton mx-1 my-1 btn-${props.buttonColor}`}>Paste Text</button>
                 <button type="button" onClick={RemoveExtraSpaces} className={`btn BasBbutton mx-1 my-1 btn-${props.buttonColor}`}>Remove Extra Spaces</button>
                 <button type="button" onClick={LetComputerSpeak} className={`btn BasBbutton mx-1 my-1 btn-${props.buttonColor}`}>Listen</button>
-                <button type="button" onClick={IncreaseFontSize} className={`btn BasBbutton mx-1 my-1 btn-${props.buttonColor}`}>Increase FontSize</button>
-                <button type="button" onClick={DecreaseFontSize} className={`btn BasBbutton mx-1 my-1 btn-${props.buttonColor}`}>Decrease FontSize</button>
-                
+
                 <h2 className={`text-${props.AllTextColor}`}>Your text summary</h2>
                 <p className={`text-${props.AllTextColor}`}><b>{Text.split(" ").filter((Text) => Text !== '').length}</b> words, <b>{Text.length}</b> characters,<b> {Text.replace(/\n/g, '.').split('.').filter((value) => value !== '').length}</b> statements, <b> {Text.split('?').length - 1}</b> questions & {' '}<b>{Text.split('!').length - 1}</b> exclamations.</p>
                 <p className={`text-${props.AllTextColor}`}>{(Text.split(" ").filter((Text) => Text !== '').length) / 125} Minutes read</p>
