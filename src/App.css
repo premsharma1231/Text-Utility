@@ -43,8 +43,19 @@
       font-size: 15px;
       height: 60px;
     }
-}
-
+    #MainAboutDiv{
+      margin: 70px 10px;
+    }
+  }
+@media screen and (min-width:401px) {
+    #MainAboutDiv{
+      margin: 70px 140px;
+    }
+  }
+  /* #MainAboutDiv{
+    margin: 70px 140px;
+  } */
+  
 textarea .form-control{
   height: 320px;
 }

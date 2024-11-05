@@ -1,9 +1,11 @@
 import React from "react";
+import "../App.css"
+
 
 
 function About(){
     return(
-      <div className="mx-12 my-12" id="MainAboutDiv" style={{margin:'70px 140px'}}>
+      <div className="mx-12 my-12" id="MainAboutDiv">
         <h1>About</h1>
         <div className="accordion MainClassAboutDiv" id="accordionExample">
   <div className="accordion-item MainClassAboutDiv">

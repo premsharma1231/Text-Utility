@@ -1,10 +1,13 @@
 import React, { useState } from "react";
+import axios from "axios";
 import "../App.css"
 
 
 export default function TextForm(props) {
     const [Text, setText] = useState('');
     const [fontSize, setFontSize] = useState(16);
+    const [grammarErrors, setGrammarErrors] = useState([]);
+
 
     function HandleOnChange(event) {
         setText(event.target.value);
@@ -17,6 +20,37 @@ export default function TextForm(props) {
             return newSize;
         });    
     }
+
+    async function checkGrammar() {
+        try {
+            const response = await axios.post(
+                "https://api.languagetool.org/v2/check",
+                new URLSearchParams({
+                    text: Text,
+                    language: "en-US"
+                })
+            );
+            
+            setGrammarErrors(response.data.matches);
+            props.ShowAlert("Grammar and spelling check completed", "success");
+        } catch (error) {
+            console.error("Error checking grammar:", error);
+            props.ShowAlert("Failed to check grammar", "warning");
+        }
+    }
+    function displayErrors() {
+        if (grammarErrors.length === 0) return <p>No grammar issues detected.</p>;
+        return (
+            <ul>
+                {grammarErrors.map((error, index) => (
+                    <li key={index}>
+                        <b>{error.message}</b> - Suggested: {error.replacements.map(r => r.value).join(", ")}
+                    </li>
+                ))}
+            </ul>
+        );
+    }
+
 
     function DecreaseFontSize() {
         setFontSize(prevSize => {
@@ -118,7 +152,32 @@ export default function TextForm(props) {
             setText(Text.toLowerCase().replace(/(^\s*\w|[.!?]\s*\w)/g, c => c.toUpperCase()));
         }
     }
-    
+    async function paraphraseText() {
+        try {
+            const response = await axios.post(
+                "https://api.openai.com/v1/completions",
+                {
+                    model: "text-davinci-003",
+                    prompt: `Paraphrase the following text: "${Text}"`,
+                    temperature: 0.7,
+                    max_tokens: 200,
+                },
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer YOUR_API_KEY`
+                    }
+                }
+            );
+            const paraphrasedText = response.data.choices[0].text.trim();
+            setText(paraphrasedText);
+            props.ShowAlert("Text has been paraphrased", "success");
+        } catch (error) {
+            console.error("Error paraphrasing text:", error);
+            props.ShowAlert("Failed to paraphrase text", "warning");
+        }
+    }
+
     
 
     return (
@@ -126,7 +185,8 @@ export default function TextForm(props) {
             <div style={{marginTop:'35px'}} className="container" id="ControlingNavbarDisplay">
                 <h1 className={`text-${props.AllTextColor}`}>Enter the text to analyze below</h1>
                 <textarea className="form-control w-90 my-2 relative" value={Text} onChange={HandleOnChange} style={{ fontSize: `${fontSize}px`, height: '190px' }} id="exampleFormControlTextarea1"></textarea>
-                
+                <button type="button" onClick={paraphraseText} className={`btn BasBbutton mx-1 my-1 btn-${props.buttonColor}`}>Paraphrase Text</button>
+                <button type="button" onClick={checkGrammar} className={`btn BasBbutton mx-1 my-1 btn-${props.buttonColor}`}>Check Grammar</button>
                 <button type="button" onClick={IncreaseFontSize} className={`btn BasBbutton mx-1 my-1 btn-${props.buttonColor}`}>Increase FontSize</button>
                 <button type="button" onClick={DecreaseFontSize} className={`btn BasBbutton mx-1 my-1 btn-${props.buttonColor}`}>Decrease FontSize</button>
                 <button type="button" onClick={ConvertToUpperCase} className={`btn BasBbutton mx-1 my-1 btn-${props.buttonColor}`}>Convert To UpperCase</button>
@@ -139,6 +199,7 @@ export default function TextForm(props) {
                 <button type="button" onClick={RemoveExtraSpaces} className={`btn BasBbutton mx-1 my-1 btn-${props.buttonColor}`}>Remove Extra Spaces</button>
                 <button type="button" onClick={LetComputerSpeak} className={`btn BasBbutton mx-1 my-1 btn-${props.buttonColor}`}>Listen</button>
 
+                <h2 className={`text-${props.AllTextColor}`}>Grammar and Spelling Issues</h2>{displayErrors()}
                 <h2 className={`text-${props.AllTextColor}`}>Your text summary</h2>
                 <p className={`text-${props.AllTextColor}`}><b>{Text.split(" ").filter((Text) => Text !== '').length}</b> words, <b>{Text.length}</b> characters,<b> {Text.replace(/\n/g, '.').split('.').filter((value) => value !== '').length}</b> statements, <b> {Text.split('?').length - 1}</b> questions & {' '}<b>{Text.split('!').length - 1}</b> exclamations.</p>
                 <p className={`text-${props.AllTextColor}`}>{(Text.split(" ").filter((Text) => Text !== '').length) / 125} Minutes read</p>
